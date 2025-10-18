@@ -1,0 +1,25 @@
+{
+  "comment": "DATA TO BE ENTERED HERE - City pollution data for 26 Maharashtra cities",
+  "cities": [
+    {
+      "name": "Mumbai",
+      "co": 8.5,
+      "co2": 450,
+      "ozone": 65,
+      "pm25": 85,
+      "soilType": "clay",
+      "fertility": "medium",
+      "humidity": 75
+    },
+    {
+      "name": "Pune",
+      "co": 6.2,
+      "co2": 420,
+      "ozone": 55,
+      "pm25": 65,
+      "soilType": "loamy",
+      "fertility": "high",
+      "humidity": 60
+    }
+  ]
+}

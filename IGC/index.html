@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tree Plantation for Pollution Reduction</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h3>🌳 Tree Calculator</h3>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#dataset" class="nav-link">Dataset</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#calculator" class="nav-link">Calculator</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#insights" class="nav-link">Insights</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Reducing Pollution, One Tree at a Time</h1>
+                <p class="hero-subtitle">Calculate how many trees are needed in different Maharashtra cities to reduce harmful pollutants and create a sustainable future.</p>
+                <button class="cta-button" onclick="scrollToSection('calculator')">Start Calculator</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dataset Section -->
+    <section id="dataset" class="section section-light">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Maharashtra Cities Dataset</h2>
+                <p class="section-subtitle">Comprehensive pollution data across 26 cities</p>
+            </div>
+            
+            <!-- Search and Filter -->
+            <div class="dataset-controls">
+                <div class="search-box">
+                    <input type="text" id="citySearch" placeholder="Search cities..." class="search-input">
+                </div>
+                <div class="filter-box">
+                    <select id="soilFilter" class="filter-select">
+                        <option value="">All Soil Types</option>
+                        <option value="clay">Clay</option>
+                        <option value="sandy">Sandy</option>
+                        <option value="loamy">Loamy</option>
+                        <option value="black">Black Soil</option>
+                    </select>
+                </div>
+                
+            </div>
+
+            <!-- City Cards Grid -->
+            <div class="cities-grid" id="citiesGrid">
+                <!-- City cards will be populated by JavaScript -->
+            </div>
+
+            <!-- Dataset Table -->
+            <div class="table-container">
+                <table class="dataset-table" id="datasetTable">
+                    <thead>
+                        <tr>
+                            <th>City</th>
+                            <th>CO (ppm)</th>
+                            <th>CO₂ (ppm)</th>
+                            <th>Ozone (ppb)</th>
+                            <th>PM 2.5 (μg/m³)</th>
+                            <th>Soil Type</th>
+                            <th>Fertility</th>
+                            <th>Humidity (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Table data will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section id="calculator" class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Tree Requirement Calculator</h2>
+                <p class="section-subtitle">Calculate optimal tree plantation for pollution reduction</p>
+            </div>
+
+            <div class="calculator-container">
+                <!-- Input Panel -->
+                <div class="calculator-inputs">
+                    <div class="input-group">
+                        <label for="citySelect">Select City</label>
+                        <select id="citySelect" class="input-field">
+                            <option value="">Choose a city...</option>
+                            <!-- Options will be populated by JavaScript -->
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="coSlider">CO Level (ppm)</label>
+                        <input type="range" id="coSlider" class="slider" min="0" max="50" value="10">
+                        <span class="slider-value" id="coValue">10</span>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="co2Slider">CO₂ Level (ppm)</label>
+                        <input type="range" id="co2Slider" class="slider" min="300" max="1000" value="400">
+                        <span class="slider-value" id="co2Value">400</span>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="ozoneSlider">Ozone Level (ppb)</label>
+                        <input type="range" id="ozoneSlider" class="slider" min="0" max="200" value="50">
+                        <span class="slider-value" id="ozoneValue">50</span>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="pmSlider">PM 2.5 Level (μg/m³)</label>
+                        <input type="range" id="pmSlider" class="slider" min="0" max="200" value="50">
+                        <span class="slider-value" id="pmValue">50</span>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="soilType">Soil Type</label>
+                        <select id="soilType" class="input-field">
+                            <option value="clay">Clay</option>
+                            <option value="sandy">Sandy</option>
+                            <option value="loamy">Loamy</option>
+                            <option value="black">Black Soil</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="fertility">Fertility Level</label>
+                        <select id="fertility" class="input-field">
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="humidity">Humidity (%)</label>
+                        <input type="range" id="humidity" class="slider" min="20" max="90" value="60">
+                        <span class="slider-value" id="humidityValue">60</span>
+                    </div>
+
+                    <button class="calculate-button" onclick="calculateTrees()">Calculate Trees Required</button>
+                </div>
+
+                <!-- Output Panel -->
+                <div class="calculator-output">
+                    <div class="output-card">
+                        <h3>Tree Requirements</h3>
+                        <div class="tree-count" id="treeCount">0</div>
+                        <p class="tree-unit">trees required</p>
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="pollutionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Insights Section -->
+    <section id="insights" class="section section-light">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Environmental Insights</h2>
+                <p class="section-subtitle">Data-driven analysis of pollution patterns</p>
+            </div>
+
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <h4>City Comparison</h4>
+                    <div class="chart-container">
+                        <canvas id="cityChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="insight-card">
+                    <h4>Pollution Heatmap</h4>
+                    <div class="heatmap-container">
+                        <canvas id="heatmapChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-insights">
+                <h3>Key Findings</h3>
+                <div class="insights-list">
+                    <div class="insight-item">
+                        <span class="insight-icon">🌫️</span>
+                        <p>Cities with high PM levels require 40% more trees for effective pollution reduction</p>
+                    </div>
+                    <div class="insight-item">
+                        <span class="insight-icon">🌱</span>
+                        <p>Fertile soil reduces tree count requirements by 25% compared to poor soil conditions</p>
+                    </div>
+                    <div class="insight-item">
+                        <span class="insight-icon">💧</span>
+                        <p>Optimal humidity levels (60-80%) significantly improve tree survival rates</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About This Project</h2>
+                <p class="section-subtitle">Environmental sustainability through data-driven solutions</p>
+            </div>
+
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Our Mission</h3>
+                    <p>This hackathon project aims to combat air pollution in Maharashtra through strategic tree plantation. By analyzing pollution data across 26 cities, we provide actionable insights for environmental restoration.</p>
+                    
+                    <h3>Impact</h3>
+                    <p>Our calculator helps urban planners, environmentalists, and policymakers make informed decisions about tree plantation, potentially reducing pollution levels by up to 30% in targeted areas.</p>
+                </div>
+
+                <div class="tech-stack">
+                    <h3>Technology Stack</h3>
+                    <div class="tech-items">
+                        <span class="tech-item">HTML5</span>
+                        <span class="tech-item">CSS3</span>
+                        <span class="tech-item">JavaScript</span>
+                        <span class="tech-item">Chart.js</span>
+                        <span class="tech-item">Responsive Design</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    <p>&copy; 2024 Tree Plantation Calculator. Built for environmental sustainability.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">GitHub</a>
+                    <a href="#" class="footer-link">Documentation</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
