@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Afforestation Planner | Net Zero Through Trees</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #f0f9f0;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 700px;
+      margin: 60px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #2e7d32;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 12px;
+      background-color: #43a047;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2e7d32;
+    }
+    .result {
+      margin-top: 30px;
+      background: #e8f5e9;
+      padding: 20px;
+      border-radius: 12px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🌳 Afforestation Planner</h1>
+    <p>Estimate how many trees are needed to make your city net-zero.</p>
+
+    <label for="city">City Name:</label>
+    <input type="text" id="city" placeholder="Enter city name">
+
+    <label for="aqi">Average AQI:</label>
+    <input type="number" id="aqi" placeholder="e.g. 150">
+
+    <label for="population">Population:</label>
+    <input type="number" id="population" placeholder="e.g. 3000000">
+
+    <label for="fertility">Soil Fertility (%):</label>
+    <input type="number" id="fertility" placeholder="e.g. 80">
+
+    <label for="nitrogen">Nitrogen (%):</label>
+    <input type="number" id="nitrogen" placeholder="e.g. 70">
+
+    <label for="humidity">Humidity (%):</label>
+    <input type="number" id="humidity" placeholder="e.g. 60">
+
+    <label for="precipitation">Precipitation (%):</label>
+    <input type="number" id="precipitation" placeholder="e.g. 90">
+
+    <button onclick="calculateTrees()">Calculate Trees Required</button>
+
+    <div id="result" class="result" style="display:none;"></div>
+  </div>
+
+  <script>
+    function calculateTrees() {
+      const city = document.getElementById("city").value;
+      const aqi = parseFloat(document.getElementById("aqi").value);
+      const population = parseFloat(document.getElementById("population").value);
+      const fertility = parseFloat(document.getElementById("fertility").value);
+      const nitrogen = parseFloat(document.getElementById("nitrogen").value);
+      const humidity = parseFloat(document.getElementById("humidity").value);
+      const precipitation = parseFloat(document.getElementById("precipitation").value);
+
+      const CO2_EMISSION_FACTOR = 0.0025; // tons CO₂ per AQI per capita
+      const TREE_ABSORPTION = 22; // kg CO₂ absorbed per tree per year
+
+      if (isNaN(aqi) || isNaN(population) || isNaN(fertility) || isNaN(nitrogen) || isNaN(humidity) || isNaN(precipitation)) {
+        alert("Please fill in all fields with valid numbers.");
+        return;
+      }
+
+      const E_CO2 = CO2_EMISSION_FACTOR * aqi * population; // in tons
+      const Sf = (fertility + nitrogen + humidity + precipitation) / 400;
+      const treesRequired = (E_CO2 * 1000) / (TREE_ABSORPTION * Sf);
+
+      const resultDiv = document.getElementById("result");
+      resultDiv.style.display = "block";
+      resultDiv.innerHTML = `
+        <strong>City:</strong> ${city || "N/A"}<br>
+        🌫️ AQI: ${aqi}<br>
+        👥 Population: ${population.toLocaleString()}<br>
+        🌱 Soil Feasibility: ${(Sf * 100).toFixed(1)}%<br><br>
+        🌳 <strong>Trees Required:</strong> ${treesRequired.toLocaleString(undefined, { maximumFractionDigits: 0 })} trees
+      `;
+    }
+  </script>
+</body>
+</html>
